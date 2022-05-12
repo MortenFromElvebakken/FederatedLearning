@@ -30,7 +30,7 @@ class ModelTrainer(ABC):
         pass
 
     @abstractmethod
-    def train(self, train_data, device, args, idx):
+    def train(self, train_data, device, args, idx, extra_params=None):
         pass
 
     @abstractmethod

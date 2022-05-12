@@ -13,7 +13,7 @@ class MyModelTrainer(ModelTrainer):
     def set_model_params(self, model_parameters):
         self.model.load_state_dict(model_parameters)
 
-    def train(self, train_data, device, args, idx):
+    def train(self, train_data, device, args, idx, extra_params=None):
         model = self.model
 
         model.to(device)
@@ -49,11 +49,11 @@ class MyModelTrainer(ModelTrainer):
                 metrics['test_correct'] += correct.item()
                 metrics['test_loss'] += loss.item() * target.size(0)
                 metrics['test_total'] += target.size(0)
-                if batch_idx == 10:
-                    break
 
-            self.run['metrics/train/loss'+str(idx)].log(metrics['test_loss']/metrics['test_total']) #add accuracy metric beneath this
-            self.run['metrics/train/acc'+str(idx)].log(metrics['test_correct']/metrics['test_total'])
+            #self.run['metrics/train/loss'+str(idx)].log(metrics['test_loss']/metrics['test_total']) #add accuracy metric beneath this
+            #self.run['metrics/train/acc'+str(idx)].log(metrics['test_correct']/metrics['test_total'])
+        #returns metrics after training
+        return metrics
 
     def test(self, test_data, device, args, idx):
         model = self.model

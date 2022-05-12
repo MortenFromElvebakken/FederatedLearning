@@ -14,11 +14,12 @@ class Client:
         self.device = device
         self.model_trainer = model_trainer
 
-    def train(self, w_global):
+    def train(self, w_global, extra_params=None):
         self.model_trainer.set_model_params(w_global)
-        self.model_trainer.train(self.client_training_data, self.device, self.args, self.client_idx)
+        metrics = self.model_trainer.train(self.client_training_data, self.device, self.args, self.client_idx,
+                                 extra_params=extra_params)
         weights = self.model_trainer.get_model_params()
-        return weights
+        return weights, metrics
 
     def client_test(self, b_use_test_dataset):
         if b_use_test_dataset:
