@@ -45,7 +45,7 @@ def init_data(args):
     for i in range(len(data_dirs)):
         cur_dir = os.path.join(data_path, data_dirs[i])
         #returns one test dataloader and unique args.clients_per_dataset train dataloaders
-        train, test = digit_five.get_dataloader(cur_dir, data_dirs[i], split_set=args.clients_per_dataset)
+        train, test = digit_five.get_dataloader(cur_dir, data_dirs[i], args)
         dataloaders_train.append(train)
         dataloaders_test.append(test)
     return dataloaders_train, dataloaders_test, data_dirs
@@ -61,3 +61,10 @@ def init_logger(args):
         # implement csv logger?
         run = None
     return run
+
+def print_class_distribution(args, dataloaders):
+
+    for i in range(args.clients):
+        for j in range(args.clients_per_dataset):
+            test = dataloaders[i][j]
+            #add number for each unique label

@@ -18,6 +18,14 @@ parser.add_argument('--fed_rounds', default='1', type=int, help='Rounds of train
 parser.add_argument('--optimizer', default='sgd', type=str, help='Which optimizer to use')
 parser.add_argument('--batch_size', default='64', type=int, help='Batch size during training')
 parser.add_argument('--logger', default='neptune', type=str, help='Which logger to use, default = neptune')
+parser.add_argument('--splits', default=1, type=int, help='how many splits for each client, used in kt')
+parser.add_argument('--split_strategy', default='homo', type=str, help='splitting strategy for partitioning data')
+parser.add_argument('--beta', default=0.5, type=float, help='Parameter for dirchlet distribution for partitioning data')
+parser.add_argument('--random_seed', default=42, type=int, help='random seed')
+#additions?
+parser.add_argument('--mu', default=0.1, type=float, help='specify mu for fedPROX')
+parser.add_argument('min_require_samples_of_each_class', default=None, type=int, help='Require min number of samples from each class')
+parser.add_argument('--n_ensemble_models', default=10, type=int, help='how many models take part in final ensemble')
 args = parser.parse_args()
 
 args.device = torch.device('cuda' if torch .cuda.is_available() else 'cpu')
